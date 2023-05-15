@@ -20,9 +20,100 @@ namespace ConsoleLogging
         {
             Program p = new Program();
             p.TestWithBounds29();
+            p.TestWithBounds28();
+            p.TestWithBounds27();
             p.TestWithoutBounds29();
         }
+        public void TestWithBounds27()
+        {
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini27.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 };
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 2;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
 
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction27,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                Console.WriteLine("Our answer= " + answer[i] + "; Gauss answer= " + gaussSolution[i]);
+            }
+
+
+            Console.WriteLine("Our answer= " + ObjectiveFunctions.ObjectiveFunction27(answer));
+            Console.WriteLine("expectedAnswer= " + ObjectiveFunctions.ExpectedFunctionValue27());
+
+
+
+        }
+        public void TestWithBounds28()
+        {
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini29.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0,0,0};
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 2;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction28,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                Console.WriteLine("Our answer= " + answer[i] + "; Gauss answer= " + gaussSolution[i]);
+            }
+
+
+            Console.WriteLine("Our answer= "+ObjectiveFunctions.ObjectiveFunction28(answer));
+            Console.WriteLine("expectedAnswer= "+ObjectiveFunctions.ExpectedFunctionValue28());
+
+
+
+        }
         public void TestWithBounds29()
         {
             Solution solution = new Solution();
@@ -33,7 +124,7 @@ namespace ConsoleLogging
             Console.WriteLine("With bounds");
             const int NP = 3;
             double[] Vector = new double[NP + 1];
-            double[] X = solution.GaussSolution;
+            double[] X = { 0,0,0};
             double L, L_thres, cR, alpha, beta, gamma;
             L = 2;
             L_thres = 0.1;
@@ -42,9 +133,9 @@ namespace ConsoleLogging
             beta = 0.5;
             gamma = 0.5;
 
-            double[] x = { 0.08,
-                0.09,
-                0.06 };
+            double[] x = { -0.08,
+                -0.09,
+                -0.06 };
 
             Console.WriteLine("примерная функция="+ObjectiveFunctions.ObjectiveFunction29(x));
 
@@ -66,9 +157,8 @@ namespace ConsoleLogging
                 Console.WriteLine("Our answer= " + answer[i] + "; Gauss answer= " + gaussSolution[i]);
             }
 
-
-            Console.WriteLine(ObjectiveFunctions.ObjectiveFunction29(answer));
-            Console.WriteLine(ObjectiveFunctions.ExpectedFunctionValue29());
+            Console.WriteLine("Our answer= " + ObjectiveFunctions.ObjectiveFunction29(answer));
+            Console.WriteLine("expectedAnswer= " + ObjectiveFunctions.ExpectedFunctionValue29());
 
 
 
@@ -112,10 +202,10 @@ namespace ConsoleLogging
             {
                 Console.WriteLine("Our answer= " + answer[i] + "; Gauss answer= "+gaussSolution[i]);
             }
-                
-            
-            Console.WriteLine(ObjectiveFunctions.ObjectiveFunction29(answer));
-            Console.WriteLine(ObjectiveFunctions.ExpectedFunctionValue29());
+
+
+            Console.WriteLine("Our answer= " + ObjectiveFunctions.ObjectiveFunction29(answer));
+            Console.WriteLine("expectedAnswer= " + ObjectiveFunctions.ExpectedFunctionValue29());
 
 
 

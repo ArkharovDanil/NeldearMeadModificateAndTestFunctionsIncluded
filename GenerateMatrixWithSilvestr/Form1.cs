@@ -509,7 +509,10 @@ namespace GenerateMatrixWithSilvestr
                 }
                 count = 1;
             }
-
+            for (int i = 0; i < x.Length; i++)
+            {
+                x[i] = -1*x[i] ;
+            }
             return x;
         }
 
@@ -537,7 +540,7 @@ namespace GenerateMatrixWithSilvestr
         private void button5_Click(object sender, EventArgs e)
         {
             thisSolution.GaussSolution = Gauss(thisSolution.Matrix, thisSolution.Dimension);
-            thisSolution.Save("iniFiles\\ininew");
+            thisSolution.Save("iniFiles1\\ini");
         }
     }
 }
