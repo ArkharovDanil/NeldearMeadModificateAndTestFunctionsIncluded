@@ -24,13 +24,13 @@ namespace NeldearMeadModificateAndTestFunctionsIncluded
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            const int Dimension = 2;
+            const int Dimension = 3;
             double[] Vector = new double[Dimension + 1];
             NeldearMead.NeldearMead Jedi = new NeldearMead.NeldearMead();
-            double[] X = { -5, 5 };
+            double[] X = { 0, 0, 0};
             double L, L_thres, cR, alpha, beta, gamma;
-            L = 0.4;
-            L_thres = 1.0e-5;
+            L = 100;
+            L_thres = 1;
             cR = 1.0;
             alpha = 2.0;
             beta = 0.5;

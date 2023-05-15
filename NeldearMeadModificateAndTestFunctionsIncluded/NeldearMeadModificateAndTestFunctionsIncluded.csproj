@@ -52,8 +52,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="NeldearMead\NeldearMeadNewVersionWithBounds.cs" />
+    <Compile Include="NeldearMead\NeldearMeadNewVersion.cs" />
     <Compile Include="NeldearMead\NeldearMead.cs" />
     <Compile Include="NeldearMead\NewNeldearMid.cs" />
+    <Compile Include="NeldearMead\ObjectiveFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

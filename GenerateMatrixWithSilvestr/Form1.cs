@@ -457,19 +457,34 @@ namespace GenerateMatrixWithSilvestr
           {
             double[,] UsMatrix = new double[n, n];
             double[,] FreeCopy = new double[n, 1];
-            for (int i = 0; i < n; i++)
-            {
-                FreeCopy[i, 0] = GenerateRandomInt();
-            }
             double[] bVector = new double[n];
-            thisSolution.BVector = bVector;
-            for (int i = 0; i < n; i++)
+            if (thisSolution.BVector is null)
             {
-                bVector[i] = FreeCopy[i, 0];
+                for (int i = 0; i < n; i++)
+                {
+                    FreeCopy[i, 0] = GenerateRandomInt();
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    bVector[i] = FreeCopy[i, 0];
+                }
+                thisSolution.BVector = bVector;
             }
+            else
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    FreeCopy[i, 0] = thisSolution.BVector[i];
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    bVector[i] = FreeCopy[i, 0];
+                }
+            }
+           
             ShowMatrix(bVector, n,"bVector");
             UsMatrix = (double[,])matrix.Clone();   //копирование матрицы
-                //копирование вектора свободных членов
+            UsMatrix = MO.Add(UsMatrix,MO.Transpose(UsMatrix));
 
             for (int i = 0; i < n - 1; i++)
             {       //приведение к верхнему треугольному виду
@@ -517,6 +532,12 @@ namespace GenerateMatrixWithSilvestr
             Solution solve = new Solution();
             thisSolution = solve.LoadSolutionFromFile(textBox3.Text);
             textBox4.Text = thisSolution.GetFunction(thisSolution.GaussSolution).ToString() + Environment.NewLine; 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            thisSolution.GaussSolution = Gauss(thisSolution.Matrix, thisSolution.Dimension);
+            thisSolution.Save("iniFiles\\ininew");
         }
     }
 }

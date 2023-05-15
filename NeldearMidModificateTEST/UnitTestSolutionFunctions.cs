@@ -10,6 +10,7 @@ namespace NeldearMidModificateTEST
     [TestClass]
     public class UnitTestSolutionFunctions
     {
+
         /// <summary>
         /// Метод, тестирующий работу метода GaussSolution класса Solution для размерности 3
         /// </summary>

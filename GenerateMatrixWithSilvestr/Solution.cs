@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace GenerateMatrixWithSilvestr
 {
     public class Solution
@@ -48,32 +49,29 @@ namespace GenerateMatrixWithSilvestr
             get { return _determinants; }
             set { _determinants = value; }
         }
-        private double ScalarMultiplication(double[] x1,double[] x2)
+       
+        public double[] LowerBound(double t)
         {
-            int t = x1.Length;
-            double scalar = 0;
-            for (int i=0;i<t;i++)
+            double[] x = new double[GaussSolution.Length];
+            for (int i=0;i<=GaussSolution.Length-1;i++)
             {
-                scalar+=x1[i]*x2[i];
+                x[i] = GaussSolution[i] - t;
             }
-            return scalar;
+            return x;
         }
-        private double[] MultiplicateOnVector(double[,]A,double[] x1)
+        public double[] UpperBound(double t)
         {
-            double[] answer = new double[x1.Length];
-            for (int i=0;i<x1.Length;i++)
+            double[] x = new double[GaussSolution.Length];
+            for (int i = 0; i <= GaussSolution.Length-1; i++)
             {
-                for (int j=0;j<x1.Length;j++)
-                {
-                    answer[i] += A[i, j]*x1[j];
-                }
+                x[i] = GaussSolution[i] + t;
             }
-            return answer;
+            return x;
         }
         public double GetFunction(double[] x)
         {
             double function = 0;
-            function+= 0.5*ScalarMultiplication(MultiplicateOnVector(_matrix,x),x) + ScalarMultiplication(_bVector, x);
+            function+= 0.5*MO.ScalarMultiplication(MO.MultiplicateOnVector(_matrix,x),x) + MO.ScalarMultiplication(_bVector, x);
             return function;
         }
         public Solution LoadSolutionFromFile(string path)

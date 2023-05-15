@@ -10,8 +10,7 @@ namespace NeldearMeadModificateAndTestFunctionsIncluded.NeldearMead
     public class NeldearMead
     {
         Solution solution = new Solution();
-
-        const int Dimension = 2;
+        const int Dimension = 3;
         double[,] Nelder_Mid = new double[Dimension, Dimension + 1];
         double[] Vector = new double[Dimension + 1];
         double[] _firstSimplex = new double[Dimension + 1];
@@ -39,10 +38,11 @@ namespace NeldearMeadModificateAndTestFunctionsIncluded.NeldearMead
 
         private double Function(double[] X, int NP)
         {
-            double x1 = X[0];
-            double p = 1.0 - x1;
-            double p2 = X[1] - x1 * x1;
-            return p * p + 100.0 * p2 * p2;
+            //double x1 = X[0];
+            //double p = 1.0 - x1;
+            //double p2 = X[1] - x1 * x1;
+            //return p * p + 100.0 * p2 * p2;
+            return solution.GetFunction(X);
         }
 
         private void makeSimplex(double[] X, double L, int NP, bool first)
@@ -145,7 +145,7 @@ namespace NeldearMeadModificateAndTestFunctionsIncluded.NeldearMead
         }
         private void simplexRestore(int NP)
         {
-            int i, imi = -1, imi2 = -1;
+            int i, imi = -1, imi2 = 0;
             double fmi, fmi2 = double.MaxValue, f;
             double[] X = new double[NP], X2 = new double[NP];
             fmi = minval(Vector, NP + 1, ref imi);
@@ -180,9 +180,11 @@ namespace NeldearMeadModificateAndTestFunctionsIncluded.NeldearMead
             }
             return false;
         }
+       
 
         public double[] nelMead(ref double[] X, int NP, double L, double L_thres, double cR, double alpha, double beta, double gamma)
         {
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini31.txt");
             int i, j2, imi = -1, ima = -1;
             int j = 0, kr = 0, jMx = 10000;
             double[] X2 = new double[NP], X_R = new double[NP];
