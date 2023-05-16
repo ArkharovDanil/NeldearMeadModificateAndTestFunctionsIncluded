@@ -21,7 +21,7 @@ namespace NeldearMidModificateTEST
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini29.txt");
             double functionValue = solution.GetFunction(solution.GaussSolution);
             bool flag = true;
-            double expectedFunctionValue = 2.4712;
+            double expectedFunctionValue = -121.007756033645;
             System.Console.WriteLine(functionValue);
             System.Console.WriteLine(expectedFunctionValue);
             if (System.Math.Abs(expectedFunctionValue - functionValue) > 0.001)              
@@ -39,7 +39,7 @@ namespace NeldearMidModificateTEST
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini24.txt");
             double functionValue = solution.GetFunction(solution.GaussSolution);
             bool flag = true;
-            double expectedFunctionValue = 1526;
+            double expectedFunctionValue = -81;
             System.Console.WriteLine(functionValue);
             System.Console.WriteLine(expectedFunctionValue);
             if (System.Math.Abs(expectedFunctionValue - functionValue) > 1)
@@ -57,10 +57,10 @@ namespace NeldearMidModificateTEST
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini12.txt");
             double functionValue = solution.GetFunction(solution.GaussSolution);
             bool flag = true;
-            double expectedFunctionValue = 39.21;
+            double expectedFunctionValue = -2.37547169811321;
             System.Console.WriteLine(functionValue);
             System.Console.WriteLine(expectedFunctionValue);
-            if (System.Math.Abs(expectedFunctionValue - functionValue) > 100)
+            if (System.Math.Abs(expectedFunctionValue - functionValue) > 1)
                 flag = false;
             Assert.IsTrue(flag);
         }

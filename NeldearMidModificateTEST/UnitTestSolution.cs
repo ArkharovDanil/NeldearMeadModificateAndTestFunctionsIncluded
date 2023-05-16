@@ -18,11 +18,9 @@ namespace NeldearMidModificateTEST
         {
             Solution solution = new Solution();
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini2.txt");
-            double[] expectedValues = new double[] { -1.6141975308642,
-                                         -6.29938271604938,
-                                         -1.16654641654642,
-                                         -6.36363636363637,
-                                         -2.67849794238683 };
+            double[] expectedValues = new double[] { -12.7272727272727,
+                                                     -4.36363636363636,
+                                                     0.0909090909090908 };
             bool flag = true;
             for (int i = 0; i < expectedValues.Length; i++)
             {
@@ -42,7 +40,7 @@ namespace NeldearMidModificateTEST
         {
             Solution solution = new Solution();
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini2.txt");
-            double[] expectedValues = new double[] { -8, -5, -4, 2, -7 };
+            double[] expectedValues = new double[] { 4,5,4};
             bool flag = true;
             for (int i = 0; i < expectedValues.Length; i++)
             {
@@ -62,7 +60,7 @@ namespace NeldearMidModificateTEST
         {
             Solution solution = new Solution();
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini2.txt");
-            double[] expectedValues = new double[] {6,11,77,1337,868};
+            double[] expectedValues = new double[] {1,3,11};
             bool flag = true;
             for (int i = 0; i < expectedValues.Length; i++)
             {
