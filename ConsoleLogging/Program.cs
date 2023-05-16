@@ -19,24 +19,70 @@ namespace ConsoleLogging
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.TestWithBounds29();
-            p.TestWithBounds28();
+           // p.TestWithBounds29();
+           // p.TestWithBounds28();
             p.TestWithBounds27();
-            p.TestWithoutBounds29();
+            p.TestWithoutBounds27();
+          //  p.TestWithoutBounds29();
+        }
+        public void TestWithoutBounds27()
+        {
+            Console.WriteLine("TestWithoutBounds27");
+            Console.WriteLine("Without bounds");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini29.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            const int NP = 5;
+            double[] Vector = new double[NP + 1];
+            double[] X = solution.GaussSolution;
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 5;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+            double[] answer = NeldearMeadNewVersion.Optimize(ObjectiveFunctions.ObjectiveFunction27,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma);
+
+
+            
+
+            bool flag = true;
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                Console.WriteLine("Our answer= " + answer[i] + "; Gauss answer= " + gaussSolution[i]);
+            }
+
+
+            Console.WriteLine("Our answer= " + ObjectiveFunctions.ObjectiveFunction29(answer));
+            Console.WriteLine("expectedAnswer= " + ObjectiveFunctions.ExpectedFunctionValue29());
+
+
+
         }
         public void TestWithBounds27()
         {
+            Console.WriteLine("TestWithBounds27");
             Solution solution = new Solution();
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini27.txt");
             double[] gaussSolution = solution.GaussSolution;
             double[] lowerBounds = solution.LowerBound(10);
             double[] upperBounds = solution.UpperBound(10);
             Console.WriteLine("With bounds");
-            const int NP = 3;
+            const int NP = 5;
             double[] Vector = new double[NP + 1];
-            double[] X = { 0, 0, 0 };
+            double[] X = { 0, 0, 0,0,0 };
             double L, L_thres, cR, alpha, beta, gamma;
-            L = 2;
+            L = 1;
             L_thres = 0.1;
             cR = 1.0;
             alpha = 2.0;
@@ -71,15 +117,16 @@ namespace ConsoleLogging
         }
         public void TestWithBounds28()
         {
+            Console.WriteLine("TestWithBounds28");
             Solution solution = new Solution();
-            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini29.txt");
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini28.txt");
             double[] gaussSolution = solution.GaussSolution;
             double[] lowerBounds = solution.LowerBound(10);
             double[] upperBounds = solution.UpperBound(10);
             Console.WriteLine("With bounds");
-            const int NP = 3;
+            const int NP = 5;
             double[] Vector = new double[NP + 1];
-            double[] X = { 0,0,0};
+            double[] X = { 0,0,0,0,0};
             double L, L_thres, cR, alpha, beta, gamma;
             L = 2;
             L_thres = 0.1;
@@ -116,6 +163,7 @@ namespace ConsoleLogging
         }
         public void TestWithBounds29()
         {
+            Console.WriteLine("TestWithBounds29");
             Solution solution = new Solution();
             solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini29.txt");
             double[] gaussSolution = solution.GaussSolution;
@@ -137,7 +185,7 @@ namespace ConsoleLogging
                 -0.09,
                 -0.06 };
 
-            Console.WriteLine("примерная функция="+ObjectiveFunctions.ObjectiveFunction29(x));
+            
 
             double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction29,
                                      X,
@@ -166,6 +214,7 @@ namespace ConsoleLogging
 
         public void TestWithoutBounds29()
         {
+            Console.WriteLine("TestWithoutBounds29");
             Console.WriteLine("Without bounds");
             const int NP = 3;
             double[] Vector = new double[NP + 1];

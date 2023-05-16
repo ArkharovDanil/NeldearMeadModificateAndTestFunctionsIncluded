@@ -72,5 +72,120 @@ namespace GenerateMatrixWithSilvestr
 
             return result;
         }
+        public static double CalculateDeterminant4(double[,] Matrix)
+        {
+            double determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 3]
+                             - Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 3] * Matrix[3, 2]
+                             - Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 1] * Matrix[3, 3]
+                             + Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 3] * Matrix[3, 1]
+                             + Matrix[0, 0] * Matrix[1, 3] * Matrix[2, 1] * Matrix[3, 2]
+                             - Matrix[0, 0] * Matrix[1, 3] * Matrix[2, 2] * Matrix[3, 1]
+                             - Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 3]
+                             + Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 3] * Matrix[3, 2]
+                             + Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 0] * Matrix[3, 3]
+                             - Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 3] * Matrix[3, 0]
+                             - Matrix[0, 1] * Matrix[1, 3] * Matrix[2, 0] * Matrix[3, 2]
+                             + Matrix[0, 1] * Matrix[1, 3] * Matrix[2, 2] * Matrix[3, 0]
+                             + Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 1] * Matrix[3, 3]
+                             - Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 3] * Matrix[3, 1]
+                             - Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 0] * Matrix[3, 3]
+                             + Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 3] * Matrix[3, 0]
+                             + Matrix[0, 2] * Matrix[1, 3] * Matrix[2, 0] * Matrix[3, 1]
+                             - Matrix[0, 2] * Matrix[1, 3] * Matrix[2, 1] * Matrix[3, 0]
+                             - Matrix[0, 3] * Matrix[1, 0] * Matrix[2, 1] * Matrix[3, 2]
+                             + Matrix[0, 3] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 1]
+                             + Matrix[0, 3] * Matrix[1, 1] * Matrix[2, 0] * Matrix[3, 2]
+                             - Matrix[0, 3] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 0]
+                             - Matrix[0, 3] * Matrix[1, 2] * Matrix[2, 0] * Matrix[3, 1]
+                             + Matrix[0, 3] * Matrix[1, 2] * Matrix[2, 1] * Matrix[3, 0];
+            return determinant;
+        }
+        public static double[,] Inverse(double[,] matrix)
+        {
+            int n = matrix.GetLength(0);
+            double[,] result = new double[n, n];
+            double[,] augmentedMatrix = new double[n, 2 * n];
+
+            // Создание расширенной матрицы [A|I]
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    augmentedMatrix[i, j] = matrix[i, j];
+                    augmentedMatrix[i, j + n] = (i == j) ? 1 : 0;
+                }
+            }
+
+            // Приведение к ступенчатому виду
+            for (int i = 0; i < n; i++)
+            {
+                // Поиск максимального элемента в столбце
+                double maxElement = Math.Abs(augmentedMatrix[i, i]);
+                int maxRowIndex = i;
+                for (int k = i + 1; k < n; k++)
+                {
+                    if (Math.Abs(augmentedMatrix[k, i]) > maxElement)
+                    {
+                        maxElement = Math.Abs(augmentedMatrix[k, i]);
+                        maxRowIndex = k;
+                    }
+                }
+
+                // Проверка на вырожденность
+                if (maxElement == 0)
+                {
+                    throw new InvalidOperationException("The matrix is singular and cannot be inverted.");
+                }
+
+                // Обмен текущей строки и строки с максимальным элементом
+                for (int k = i; k < 2 * n; k++)
+                {
+                    double temp = augmentedMatrix[maxRowIndex, k];
+                    augmentedMatrix[maxRowIndex, k] = augmentedMatrix[i, k];
+                    augmentedMatrix[i, k] = temp;
+                }
+
+                // Нормализация строки
+                double pivot = augmentedMatrix[i, i];
+                for (int k = i; k < 2 * n; k++)
+                {
+                    augmentedMatrix[i, k] /= pivot;
+                }
+
+                // Обнуление элементов ниже главной диагонали
+                for (int j = i + 1; j < n; j++)
+                {
+                    double factor = augmentedMatrix[j, i];
+                    for (int k = i; k < 2 * n; k++)
+                    {
+                        augmentedMatrix[j, k] -= factor * augmentedMatrix[i, k];
+                    }
+                }
+            }
+
+            // Обратный проход
+            for (int i = n - 1; i >= 0; i--)
+            {
+                // Обнуление элементов выше главной диагонали
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    double factor = augmentedMatrix[j, i];
+                    for (int k = i; k < 2 * n; k++)
+                    {
+                        augmentedMatrix[j, k] -= factor * augmentedMatrix[i, k];
+                    }
+                }
+            }    // Копирование обратной матрицы из расширенной матрицы
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    result[i, j] = augmentedMatrix[i, j + n];
+                }
+            }
+
+            return result;
+        }
+
     }
 }

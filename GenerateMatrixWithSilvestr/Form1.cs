@@ -95,7 +95,7 @@ namespace GenerateMatrixWithSilvestr
             ShowMatrix(x, n,"Gauss");
             thisSolution.GaussSolution = x;
             thisSolution.Matrix = Matrix;
-            thisSolution.Save("iniFiles\\ini");
+            thisSolution.Save("iniFiles5\\ini");
         }
         public void GenerateMatrix(int n)
         {
@@ -105,32 +105,32 @@ namespace GenerateMatrixWithSilvestr
             {
                 case 1:
                     { 
-                        Matrix=GenerateMatrixA1();
+                        Matrix= GenerateSymmetricMatrixA1WithZeros();
                         ShowAll(Matrix, n);
 
                     }
         break;
                 case 2:
-                    { 
-                        Matrix = GenerateMatrixA2();
+                    {
+                        Matrix = GenerateSymmetricMatrixA2WithZeros();
                         ShowAll(Matrix, n);
                     }
         break;
                 case 3:
                     {
-                        Matrix = GenerateMatrixA3();
+                        Matrix = GenerateSymmetricMatrixA3WithZeros();
                         ShowAll(Matrix, n);
                     }
                     break;
                 case 4:
                     {
-                        Matrix = GenerateMatrixA4();
+                        Matrix = GenerateSymmetricMatrixA4WithZeros();
                         ShowAll(Matrix, n);
                     }
                     break;
                 case 5:
                     { 
-                        Matrix = GenerateMatrixA5();
+                        Matrix = GenerateSymmetricMatrixA5WithZeros();
                         ShowAll(Matrix, n);
                     }
                     break;
@@ -143,85 +143,174 @@ namespace GenerateMatrixWithSilvestr
             }
 
         }
-        private double[,] GenerateMatrixA1()
+        public double[,] GenerateSymmetricMatrixA1()
         {
-            double[,] MatrixA = new double[1,1];
-            MatrixA[0, 0] = GenerateRandomInt();
+            double[,] MatrixA = new double[1, 1];
+
+            for (int i = 0; i < 1; i++)
+            {
+                for (int j = i; j < 1; j++)
+                {
+                    double randomValue = GenerateRandomInt();
+                    MatrixA[i, j] = randomValue;
+
+                    if (i != j)
+                    {
+                        MatrixA[j, i] = randomValue;
+                    }
+                }
+            }
+
             return MatrixA;
         }
-        private double[,] GenerateMatrixA2()
+        public double[,] GenerateSymmetricMatrixA1WithZeros()
+        {
+            double[,] MatrixA = GenerateSymmetricMatrixA1();
+            return MatrixA;
+        }
+        public double[,] GenerateSymmetricMatrixA2()
         {
             double[,] MatrixA = new double[2, 2];
-            MatrixA[0, 0] = GenerateRandomInt();
-            MatrixA[0, 1] = GenerateRandomInt();
-            MatrixA[1, 0] = MatrixA[0, 1];
-            MatrixA[1, 1] = GenerateRandomInt();
-            
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = i; j < 2; j++)
+                {
+                    double randomValue = GenerateRandomInt();
+                    MatrixA[i, j] = randomValue;
+
+                    if (i != j)
+                    {
+                        MatrixA[j, i] = randomValue;
+                    }
+                }
+            }
+
             return MatrixA;
         }
-        public double[,] GenerateMatrixA3()
+        public double[,] GenerateSymmetricMatrixA2WithZeros()
         {
-            double[,] MatrixA = new double[3,3];
-            MatrixA[0, 0] = GenerateRandomInt();
-            MatrixA[0, 1] = GenerateRandomInt();
-            MatrixA[0, 2] = 0;
-            MatrixA[1, 0] = MatrixA[0, 1];
-            MatrixA[1, 1] = GenerateRandomInt();
-            MatrixA[1, 2] = 0;
-            MatrixA[2, 0] = GenerateRandomInt();
-            MatrixA[2, 1] = GenerateRandomInt();
-            MatrixA[2, 2] = GenerateRandomInt();
+            double[,] MatrixA = GenerateSymmetricMatrixA2();
             return MatrixA;
         }
-        public double[,] GenerateMatrixA4()
+        public double[,] GenerateSymmetricMatrixA3()
+        {
+            double[,] MatrixA = new double[3, 3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = i; j < 3; j++)
+                {
+                    double randomValue = GenerateRandomInt();
+                    MatrixA[i, j] = randomValue;
+
+                    if (i != j)
+                    {
+                        MatrixA[j, i] = randomValue;
+                    }
+                }
+            }
+
+            return MatrixA;
+        }
+        public double[,] GenerateSymmetricMatrixA3WithZeros()
+        {
+            double[,] MatrixA = GenerateSymmetricMatrixA3();
+
+            // Задаем позиции, где нужно добавить нули
+            int[,] zeroPositions = {
+                                   {0, 2}
+                                   };
+
+            // Добавляем нули на указанные позиции
+            for (int i = 0; i < zeroPositions.GetLength(0); i++)
+            {
+                int row = zeroPositions[i, 0];
+                int col = zeroPositions[i, 1];
+                MatrixA[row, col] = 0;
+                MatrixA[col, row] = 0;
+            }
+
+            return MatrixA;
+        }
+        public double[,] GenerateSymmetricMatrixA4()
         {
             double[,] MatrixA = new double[4, 4];
-            MatrixA[0, 0] = GenerateRandomInt();
-            MatrixA[0, 1] = GenerateRandomInt();
-            MatrixA[0, 2] = 0;
-            MatrixA[0, 3] = GenerateRandomInt();
-            MatrixA[1, 0] = MatrixA[0, 1];
-            MatrixA[1, 1] = GenerateRandomInt();
-            MatrixA[1, 2] = 0;
-            MatrixA[1, 3] = 0;
-            MatrixA[2, 0] = GenerateRandomInt();
-            MatrixA[2, 1] = GenerateRandomInt();
-            MatrixA[2, 2] = GenerateRandomInt();
-            MatrixA[2, 3] = GenerateRandomInt();
-            MatrixA[3, 0] = GenerateRandomInt();
-            MatrixA[3, 1] = GenerateRandomInt();
-            MatrixA[3, 2] = 0;
-            MatrixA[3, 3] = GenerateRandomInt();
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = i; j < 4; j++)
+                {
+                    double randomValue = GenerateRandomInt();
+                    MatrixA[i, j] = randomValue;
+
+                    if (i != j)
+                    {
+                        MatrixA[j, i] = randomValue;
+                    }
+                }
+            }
+
             return MatrixA;
         }
-        public double[,] GenerateMatrixA5()
+        public double[,] GenerateSymmetricMatrixA4WithZeros()
+        {
+            double[,] MatrixA = GenerateSymmetricMatrixA4();
+
+            // Задаем позиции, где нужно добавить нули
+            int[,] zeroPositions = {
+                                   {0, 2}, {1, 3}
+                                   };
+
+            // Добавляем нули на указанные позиции
+            for (int i = 0; i < zeroPositions.GetLength(0); i++)
+            {
+                int row = zeroPositions[i, 0];
+                int col = zeroPositions[i, 1];
+                MatrixA[row, col] = 0;
+                MatrixA[col, row] = 0;
+            }
+
+            return MatrixA;
+        }
+
+        public double[,] GenerateSymmetricMatrixA5()
         {
             double[,] MatrixA = new double[5, 5];
-            MatrixA[0, 0] = GenerateRandomInt();
-            MatrixA[0, 1] = GenerateRandomInt();
-            MatrixA[0, 2] = 0;
-            MatrixA[0, 3] = GenerateRandomInt();
-            MatrixA[0, 4] = GenerateRandomInt();
-            MatrixA[1, 0] = MatrixA[0, 1];
-            MatrixA[1, 1] = GenerateRandomInt();
-            MatrixA[1, 2] = 0;
-            MatrixA[1, 3] = 0;
-            MatrixA[1, 4] = GenerateRandomInt();
-            MatrixA[2, 0] = GenerateRandomInt();
-            MatrixA[2, 1] = GenerateRandomInt();
-            MatrixA[2, 2] = GenerateRandomInt();
-            MatrixA[2, 3] = GenerateRandomInt();
-            MatrixA[2, 4] = GenerateRandomInt();
-            MatrixA[3, 0] = GenerateRandomInt();
-            MatrixA[3, 1] = GenerateRandomInt();
-            MatrixA[3, 2] = 0;
-            MatrixA[3, 3] = GenerateRandomInt();
-            MatrixA[3, 4] = GenerateRandomInt();
-            MatrixA[4, 0] = GenerateRandomInt();
-            MatrixA[4, 1] = 0;
-            MatrixA[4, 2] = 0;
-            MatrixA[4, 3] = 0;
-            MatrixA[4, 4] = GenerateRandomInt();
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = i; j < 5; j++)
+                {
+                    double randomValue = GenerateRandomInt();
+                    MatrixA[i, j] = randomValue;
+
+                    if (i != j)
+                    {
+                        MatrixA[j, i] = randomValue;
+                    }
+                }
+            }
+
+            return MatrixA;
+        }
+        public double[,] GenerateSymmetricMatrixA5WithZeros()
+        {
+            double[,] MatrixA = GenerateSymmetricMatrixA5();
+
+            // Задаем позиции, где нужно добавить нули
+            int[,] zeroPositions = {
+                                   {0, 2}, {1, 3}, {1, 4}, {2, 4}
+                                   };
+
+            // Добавляем нули на указанные позиции
+            for (int i = 0; i < zeroPositions.GetLength(0); i++)
+            {
+                int row = zeroPositions[i, 0];
+                int col = zeroPositions[i, 1];
+                MatrixA[row, col] = 0;
+                MatrixA[col, row] = 0;
+            }
 
             return MatrixA;
         }
@@ -292,8 +381,12 @@ namespace GenerateMatrixWithSilvestr
         public bool IsPositiveDeterminant3(double[,] Matrix)
         {
             bool flag = false;
-            double determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2] -
-                Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2] ;
+            double determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2]
+                            + Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 0]
+                            + Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 1]
+                            - Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 0]
+                            - Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 1]
+                            - Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2];
             thisSolution.Determinants[2] = determinant;
             label11.Text = determinant.ToString();
             if (
@@ -305,10 +398,30 @@ namespace GenerateMatrixWithSilvestr
         public bool IsPositiveDeterminant4(double[,] Matrix)
         {
             bool flag = false;
-            double determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 3] -
-                Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 3] +
-                Matrix[0, 3] * Matrix[0, 1] * Matrix[2, 2] * Matrix[3, 1] -
-                Matrix[1, 1] * Matrix[0, 3] * Matrix[2, 2] * Matrix[3, 0];
+            double determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 3]
+                             - Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 3] * Matrix[3, 2]
+                             - Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 1] * Matrix[3, 3]
+                             + Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 3] * Matrix[3, 1]
+                             + Matrix[0, 0] * Matrix[1, 3] * Matrix[2, 1] * Matrix[3, 2]
+                             - Matrix[0, 0] * Matrix[1, 3] * Matrix[2, 2] * Matrix[3, 1]
+                             - Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 3]
+                             + Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 3] * Matrix[3, 2]
+                             + Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 0] * Matrix[3, 3]
+                             - Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 3] * Matrix[3, 0]
+                             - Matrix[0, 1] * Matrix[1, 3] * Matrix[2, 0] * Matrix[3, 2]
+                             + Matrix[0, 1] * Matrix[1, 3] * Matrix[2, 2] * Matrix[3, 0]
+                             + Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 1] * Matrix[3, 3]
+                             - Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 3] * Matrix[3, 1]
+                             - Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 0] * Matrix[3, 3]
+                             + Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 3] * Matrix[3, 0]
+                             + Matrix[0, 2] * Matrix[1, 3] * Matrix[2, 0] * Matrix[3, 1]
+                             - Matrix[0, 2] * Matrix[1, 3] * Matrix[2, 1] * Matrix[3, 0]
+                             - Matrix[0, 3] * Matrix[1, 0] * Matrix[2, 1] * Matrix[3, 2]
+                             + Matrix[0, 3] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 1]
+                             + Matrix[0, 3] * Matrix[1, 1] * Matrix[2, 0] * Matrix[3, 2]
+                             - Matrix[0, 3] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 0]
+                             - Matrix[0, 3] * Matrix[1, 2] * Matrix[2, 0] * Matrix[3, 1]
+                             + Matrix[0, 3] * Matrix[1, 2] * Matrix[2, 1] * Matrix[3, 0];
             thisSolution.Determinants[3] = determinant;
             label12.Text = determinant.ToString();
             if (
@@ -317,20 +430,119 @@ namespace GenerateMatrixWithSilvestr
                 flag = true;
             return flag;
         }
+        public bool IsPositiveDeterminant(double[,] Matrix)
+        {
+            bool flag = false;
+            int n = Matrix.GetLength(0);
+            double determinant = 0;
+
+            if (n == 1)
+            {
+                determinant = Matrix[0, 0];
+                thisSolution.Determinants[0]=determinant;
+                label9.Text = determinant.ToString();
+            }
+            else if (n == 2)
+            {
+                determinant = Matrix[0, 0] * Matrix[1, 1] - Matrix[0, 1] * Matrix[1, 0];
+                thisSolution.Determinants[1] = determinant;
+                label10.Text = determinant.ToString();
+            }
+            else if (n == 3)
+            {
+                determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2]
+                            + Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 0]
+                            + Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 1]
+                            - Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 0]
+                            - Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 1]
+                            - Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2];
+                thisSolution.Determinants[2] = determinant;
+                label11.Text = determinant.ToString();
+            }
+            else if (n == 4)
+            {
+                determinant = Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 3]
+                            - Matrix[0, 0] * Matrix[1, 1] * Matrix[2, 3] * Matrix[3, 2]
+                            - Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 1] * Matrix[3, 3]
+                            + Matrix[0, 0] * Matrix[1, 2] * Matrix[2, 3] * Matrix[3, 1]
+                            + Matrix[0, 0] * Matrix[1, 3] * Matrix[2, 1] * Matrix[3, 2]
+                            - Matrix[0, 0] * Matrix[1, 3] * Matrix[2, 2] * Matrix[3, 1]
+                            - Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 3]
+                            + Matrix[0, 1] * Matrix[1, 0] * Matrix[2, 3] * Matrix[3, 2]
+                            + Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 0] * Matrix[3, 3]
+                            - Matrix[0, 1] * Matrix[1, 2] * Matrix[2, 3] * Matrix[3, 0]
+                            - Matrix[0, 1] * Matrix[1, 3] * Matrix[2, 0] * Matrix[3, 2]
+                            + Matrix[0, 1] * Matrix[1, 3] * Matrix[2, 2] * Matrix[3, 0]
+                            + Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 1] * Matrix[3, 3]
+                            - Matrix[0, 2] * Matrix[1, 0] * Matrix[2, 3] * Matrix[3, 1]
+                            - Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 0] * Matrix[3, 3]
+                            + Matrix[0, 2] * Matrix[1, 1] * Matrix[2, 3] * Matrix[3, 0]
+                            + Matrix[0, 2] * Matrix[1, 3] * Matrix[2, 0] * Matrix[3, 1]
+                            - Matrix[0, 2] * Matrix[1, 3] * Matrix[2, 1] * Matrix[3, 0]
+                            - Matrix[0, 3] * Matrix[1, 0] * Matrix[2, 1] * Matrix[3, 2]
+                            + Matrix[0, 3] * Matrix[1, 0] * Matrix[2, 2] * Matrix[3, 1]
+                            + Matrix[0, 3] * Matrix[1, 1] * Matrix[2, 0] * Matrix[3, 2]
+                            - Matrix[0, 3] * Matrix[1, 1] * Matrix[2, 2] * Matrix[3, 0]
+                            - Matrix[0, 3] * Matrix[1, 2] * Matrix[2, 0] * Matrix[3, 1]
+                            + Matrix[0, 3] * Matrix[1, 2] * Matrix[2, 1] * Matrix[3, 0];
+                thisSolution.Determinants[3] = determinant;
+                label12.Text = determinant.ToString();
+            }
+            else if (n == 5)
+            {
+                double[,] subMatrix = new double[4, 4];
+                for (int i = 0; i < 4; i++)
+                    for (int j = 0; j < 4; j++)
+                        subMatrix[i, j] = Matrix[i + 1, j + 1];
+
+                for (int k = 0; k < 5; k++)
+                {
+                    double tmpDeterminant = Matrix[0, k] * MO.CalculateDeterminant4(subMatrix);
+                    determinant += (k % 2 == 0 ? 1 : -1) * tmpDeterminant;
+
+                    if (k < 4)
+                    {
+                        for (int i = 0; i < 4; i++)
+                            subMatrix[i, k] = Matrix[i + 1, k];
+                    }
+                }
+                thisSolution.Determinants[4] = determinant;
+                label13.Text = determinant.ToString();
+            }
+            
+            if (determinant > 0)
+                    flag = true;
+
+                return flag;
+
+            }
+
         public bool IsPositiveDeterminant5(double[,] Matrix)
         {
             bool flag = false;
-            double determinant = Matrix[0, 3] * Matrix[0, 1] * Matrix[3, 1] * Matrix[4, 4] * Matrix[2, 2] -
-                Matrix[1, 1] * Matrix[0, 3] * Matrix[3, 0] * Matrix[4, 4] * Matrix[2, 2] +
-                Matrix[1, 1] * Matrix[0, 3] * Matrix[3, 4] * Matrix[4, 0] * Matrix[2, 2] -
-                Matrix[0, 3] * Matrix[1, 4] * Matrix[3, 1] * Matrix[4, 0] * Matrix[2, 2] +
-                Matrix[3, 3] * Matrix[0, 0] * Matrix[1, 1] * Matrix[4, 4] * Matrix[2, 2] -
-                Matrix[3, 3] * Matrix[1, 0] * Matrix[0, 1] * Matrix[4, 4] * Matrix[2, 2] -
-                Matrix[3, 3] * Matrix[1, 1] * Matrix[4, 0] * Matrix[0, 4] * Matrix[2, 2];
+            double determinant = 0;
+
+            double[,] subMatrix = new double[4, 4];
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    subMatrix[i, j] = Matrix[i + 1, j + 1];
+
+            for (int k = 0; k < 5; k++)
+            {
+                double tmpDeterminant = Matrix[0, k] * MO.CalculateDeterminant4(subMatrix);
+                determinant += (k % 2 == 0 ? 1 : -1) * tmpDeterminant;
+
+                if (k < 4)
+                {
+                    for (int i = 0; i < 4; i++)
+                        subMatrix[i, k] = Matrix[i + 1, k];
+                }
+            }
             thisSolution.Determinants[4] = determinant;
             label13.Text = determinant.ToString();
+
             if (
-                determinant>0
+                determinant > 0
                 )
                 flag = true;
             return flag;
@@ -395,10 +607,10 @@ namespace GenerateMatrixWithSilvestr
             {
                 case 1:
                     {
-                        Matrix = GenerateMatrixA1();
+                        Matrix = GenerateSymmetricMatrixA1WithZeros();
                         while (!IsSilvestr(Matrix, n))
                         {
-                            Matrix = GenerateMatrixA1();
+                            Matrix = GenerateSymmetricMatrixA1WithZeros();
                         }
                         ShowAll(Matrix, n);
 
@@ -406,40 +618,40 @@ namespace GenerateMatrixWithSilvestr
                     break;
                 case 2:
                     {
-                        Matrix = GenerateMatrixA2();
+                        Matrix = GenerateSymmetricMatrixA2WithZeros();
                         while (!IsSilvestr(Matrix, n))
                         {
-                            Matrix = GenerateMatrixA2();
+                            Matrix = GenerateSymmetricMatrixA2WithZeros();
                         }
                         ShowAll(Matrix, n);
                     }
                     break;
                 case 3:
                     {
-                        Matrix = GenerateMatrixA3();
+                        Matrix = GenerateSymmetricMatrixA3WithZeros();
                         while (!IsSilvestr(Matrix, n))
                         {
-                            Matrix = GenerateMatrixA3();
+                            Matrix = GenerateSymmetricMatrixA3WithZeros();
                         }
                         ShowAll(Matrix, n);
                     }
                     break;
                 case 4:
                     {
-                        Matrix = GenerateMatrixA4();
+                        Matrix = GenerateSymmetricMatrixA4WithZeros();
                         while (!IsSilvestr(Matrix, n))
                         {
-                            Matrix = GenerateMatrixA4();
+                            Matrix = GenerateSymmetricMatrixA4WithZeros();
                         }
                         ShowAll(Matrix, n);
                     }
                     break;
                 case 5:
                     {
-                        Matrix = GenerateMatrixA5();
+                        Matrix = GenerateSymmetricMatrixA5WithZeros();
                         while (!IsSilvestr(Matrix, n))
                         {
-                            Matrix = GenerateMatrixA5();
+                            Matrix = GenerateSymmetricMatrixA5WithZeros();
                         }
                         ShowAll(Matrix, n);
                     }
@@ -484,35 +696,37 @@ namespace GenerateMatrixWithSilvestr
            
             ShowMatrix(bVector, n,"bVector");
             UsMatrix = (double[,])matrix.Clone();   //копирование матрицы
-            UsMatrix = MO.Add(UsMatrix,MO.Transpose(UsMatrix));
-
-            for (int i = 0; i < n - 1; i++)
-            {       //приведение к верхнему треугольному виду
-                for (int j = i + 1; j < n; j++)
-                {
-                    double koef = UsMatrix[j, i] / UsMatrix[i, i];
-                    for (int k = i; k < n; k++)
-                    {
-                        UsMatrix[j, k] -= UsMatrix[i, k] * koef;
-                    }
-                    FreeCopy[j, 0] -= FreeCopy[i, 0] * koef;        //изменение вектора свободных членов
-                }
-            }
-            int count = 1;
-            double[] x = new double[n];
-            x[0] = FreeCopy[n - 1, 0] / UsMatrix[n - 1, n - 1];
-            for (int i = 1, k = n - 2; i < n && k >= 0; i++, k--)
-            {       //обртаный ход
-                for (int j = n - 1; j != k; j--, count++)
-                {
-                    x[i] = (FreeCopy[k, 0] + UsMatrix[k, j] * (-1) * x[i - count]) / UsMatrix[k, k];
-                }
-                count = 1;
-            }
-            for (int i = 0; i < x.Length; i++)
+            double[,] UsMatrix2 = new double[n, n];
+            UsMatrix2=MO.Inverse(UsMatrix);
+            double[] x = MO.MultiplicateOnVector(UsMatrix2,bVector);
+            for (int i = 0; i < n; i++)
             {
-                x[i] = -1*x[i] ;
+                x[i] = -1*x[i];
             }
+            //for (int i = 0; i < n - 1; i++)
+            //{       //приведение к верхнему треугольному виду
+            //    for (int j = i + 1; j < n; j++)
+            //    {
+            //        double koef = UsMatrix[j, i] / UsMatrix[i, i];
+            //        for (int k = i; k < n; k++)
+            //        {
+            //            UsMatrix[j, k] -= UsMatrix[i, k] * koef;
+            //        }
+            //        FreeCopy[j, 0] -= FreeCopy[i, 0] * koef;        //изменение вектора свободных членов
+            //    }
+            //}
+            //int count = 1;
+            //double[] x = new double[n];
+            //x[0] = FreeCopy[n - 1, 0] / UsMatrix[n - 1, n - 1];
+            //for (int i = 1, k = n - 2; i < n && k >= 0; i++, k--)
+            //{       //обртаный ход
+            //    for (int j = n - 1; j != k; j--, count++)
+            //    {
+            //        x[i] = (FreeCopy[k, 0] + UsMatrix[k, j] * (-1) * x[i - count]) / UsMatrix[k, k];
+            //    }
+            //    count = 1;
+            //}
+            
             return x;
         }
 
