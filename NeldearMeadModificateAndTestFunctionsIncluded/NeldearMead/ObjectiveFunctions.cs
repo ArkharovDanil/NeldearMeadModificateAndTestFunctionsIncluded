@@ -9,6 +9,21 @@ namespace NeldearMeadModificateAndTestFunctionsIncluded.NeldearMead
 {
     static public class ObjectiveFunctions
     {
+        static public double ObjectiveFunction1(double[] x)
+        {
+
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini1.txt");
+            double functionValue = solution.GetFunction(x);
+            return functionValue;
+        }
+        public static double ExpectedFunctionValue1()
+        {
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini1.txt");
+            double functionValue = solution.GetFunction(solution.GaussSolution);
+            return functionValue;
+        }
         static public double ObjectiveFunction2(double[] x)
         {
 
