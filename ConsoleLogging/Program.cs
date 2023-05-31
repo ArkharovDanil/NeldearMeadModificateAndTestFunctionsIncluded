@@ -19,12 +19,502 @@ namespace ConsoleLogging
         static void Main(string[] args)
         {
             Program p = new Program();
+            p.ForDiplomaThirdDimension();
+            //p.ForDiploma4();
+            //p.ForDiploma5();
+            //p.ForDiploma12();
+            //p.ForDiploma14();
+            //p.ForDiploma25();
+            //p.ForDiploma26();
             // p.TestWithBounds29();
             // p.TestWithBounds28();
-            p.TestWithBounds3Dimension();
-            p.TestWithBounds4Dimension();
-            p.TestWithBounds5Dimension();
+            // p.TestWithBounds3Dimension();
+            // p.TestWithBounds4Dimension();
+            // p.TestWithBounds5Dimension();
             //  p.TestWithoutBounds29();
+        }
+        public double FunctionThirdDimension(double[] x)
+        {
+            double first = ObjectiveFunctions.ObjectiveFunction4(x);
+            double second = ObjectiveFunctions.ObjectiveFunction5(x);
+            if (first > second) 
+                return second;
+            return first;
+
+        }
+        public double FunctionFourthDimension(double[] x)
+        {
+            double first = ObjectiveFunctions.ObjectiveFunction12(x);
+            double second = ObjectiveFunctions.ObjectiveFunction14(x);
+            if (first > second)
+                return second;
+            return first;
+
+        }
+        public double FunctionFifthDimension(double[] x)
+        {
+            double first = ObjectiveFunctions.ObjectiveFunction25(x);
+            double second = ObjectiveFunctions.ObjectiveFunction26(x);
+            if (first > second)
+                return second;
+            return first;
+
+        }
+        public void ForDiplomaThirdDimension()
+        {
+            Console.WriteLine("TestWithBoundsThirdDimension");
+            Solution solution = new Solution();
+            Solution solution1 = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini4.txt");
+            solution1= solution1.LoadSolutionFromFile("C:\\iniFiles\\ini5.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(1000);
+            double[] upperBounds = solution.UpperBound(1000);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0,0,0};
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(FunctionThirdDimension,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = FunctionThirdDimension(answer);
+            double expected = FunctionThirdDimension(gaussSolution);
+            double expected2 = FunctionThirdDimension(solution1.GaussSolution);
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer1 = " + expected);
+            Console.WriteLine("expectedAnswer2 = " + expected2);
+
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiplomaFourthDimension()
+        {
+            Console.WriteLine("TestWithBoundsFourthDimension");
+            Solution solution = new Solution();
+            Solution solution1 = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini12.txt");
+            solution1 = solution1.LoadSolutionFromFile("C:\\iniFiles\\ini14.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(1000);
+            double[] upperBounds = solution.UpperBound(1000);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 };
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(FunctionFourthDimension,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = FunctionFourthDimension(answer);
+            double expected = FunctionFourthDimension(gaussSolution);
+            double expected2 = FunctionFourthDimension(solution1.GaussSolution);
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer1 = " + expected);
+            Console.WriteLine("expectedAnswer2 = " + expected2);
+
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiplomaFifthDimension()
+        {
+            Console.WriteLine("TestWithBoundsFifthDimension");
+            Solution solution = new Solution();
+            Solution solution1 = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini4.txt");
+            solution1 = solution1.LoadSolutionFromFile("C:\\iniFiles\\ini5.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(1000);
+            double[] upperBounds = solution.UpperBound(1000);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 };
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(FunctionFifthDimension,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = FunctionFifthDimension(answer);
+            double expected = FunctionFifthDimension(gaussSolution);
+            double expected2 = FunctionFifthDimension(solution1.GaussSolution);
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer1 = " + expected);
+            Console.WriteLine("expectedAnswer2 = " + expected2);
+
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiploma4()
+        {
+            Console.WriteLine("TestWithBounds4");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini4.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 };
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction4,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = ObjectiveFunctions.ObjectiveFunction4(answer);
+            double expected = ObjectiveFunctions.ExpectedFunctionValue4();
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+               // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer = " + expected);
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiploma5()
+        {
+            Console.WriteLine("TestWithBounds5");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini5.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 3;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 };
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction5,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = ObjectiveFunctions.ObjectiveFunction5(answer);
+            double expected = ObjectiveFunctions.ExpectedFunctionValue5();
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer = " + expected);
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiploma12()
+        {
+            Console.WriteLine("TestWithBounds12");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini12.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 4;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 ,0};
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction12,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = ObjectiveFunctions.ObjectiveFunction12(answer);
+            double expected = ObjectiveFunctions.ExpectedFunctionValue12();
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer = " + expected);
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiploma14()
+        {
+            Console.WriteLine("TestWithBounds14");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini14.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 4;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 ,0};
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction14,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = ObjectiveFunctions.ObjectiveFunction14(answer);
+            double expected = ObjectiveFunctions.ExpectedFunctionValue14();
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer = " + expected);
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiploma25()
+        {
+            Console.WriteLine("TestWithBounds25");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini25.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 5;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 ,0,0};
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction25,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = ObjectiveFunctions.ObjectiveFunction25(answer);
+            double expected = ObjectiveFunctions.ExpectedFunctionValue25();
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer = " + expected);
+            Console.WriteLine("--------------------------------------------- ");
+
+        }
+        public void ForDiploma26()
+        {
+            Console.WriteLine("TestWithBounds26");
+            Solution solution = new Solution();
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini26.txt");
+            double[] gaussSolution = solution.GaussSolution;
+            double[] lowerBounds = solution.LowerBound(10);
+            double[] upperBounds = solution.UpperBound(10);
+            Console.WriteLine("With bounds");
+            const int NP = 5;
+            double[] Vector = new double[NP + 1];
+            double[] X = { 0, 0, 0 ,0,0};
+            double L, L_thres, cR, alpha, beta, gamma;
+            L = 10;
+            L_thres = 0.1;
+            cR = 1.0;
+            alpha = 2.0;
+            beta = 0.5;
+            gamma = 0.5;
+
+
+            double[] answer = NeldearMeadNewVersionWithBounds.Optimize(ObjectiveFunctions.ObjectiveFunction26,
+                                     X,
+                                     NP,
+                                     L,
+                                     L_thres,
+                                     cR,
+                                     alpha,
+                                     beta,
+                                     gamma,
+                                     lowerBounds,
+                                     upperBounds);
+
+            bool flag = true;
+
+            double our = ObjectiveFunctions.ObjectiveFunction26(answer);
+            double expected = ObjectiveFunctions.ExpectedFunctionValue26();
+            for (int i = 0; i < gaussSolution.Length; i++)
+            {
+                // Console.WriteLine("Gauss solution "+i+" "+ gaussSolution[i]);
+                Console.WriteLine("x[" + i + "] = " + answer[i]);
+            }
+            double miss = Math.Abs(our - expected);
+            Console.WriteLine("miss= " + miss);
+            Console.WriteLine("Our answer = " + our);
+            Console.WriteLine("expectedAnswer = " + expected);
+            Console.WriteLine("--------------------------------------------- ");
+
         }
         public void TestWithBounds5Dimension()
         {
