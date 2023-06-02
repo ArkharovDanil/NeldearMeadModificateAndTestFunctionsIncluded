@@ -20,6 +20,8 @@ namespace ConsoleLogging
         {
             Program p = new Program();
             p.ForDiplomaThirdDimension();
+            p.ForDiplomaFourthDimension();
+            p.ForDiplomaFifthDimension();
             //p.ForDiploma4();
             //p.ForDiploma5();
             //p.ForDiploma12();
@@ -125,9 +127,9 @@ namespace ConsoleLogging
             double[] lowerBounds = solution.LowerBound(1000);
             double[] upperBounds = solution.UpperBound(1000);
             Console.WriteLine("With bounds");
-            const int NP = 3;
+            const int NP = 4;
             double[] Vector = new double[NP + 1];
-            double[] X = { 0, 0, 0 };
+            double[] X = { gaussSolution[0]-1, gaussSolution[1] - 3, gaussSolution[2] - 5, gaussSolution[3] - 1 };
             double L, L_thres, cR, alpha, beta, gamma;
             L = 10;
             L_thres = 0.1;
@@ -173,15 +175,15 @@ namespace ConsoleLogging
             Console.WriteLine("TestWithBoundsFifthDimension");
             Solution solution = new Solution();
             Solution solution1 = new Solution();
-            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini4.txt");
-            solution1 = solution1.LoadSolutionFromFile("C:\\iniFiles\\ini5.txt");
+            solution = solution.LoadSolutionFromFile("C:\\iniFiles\\ini25.txt");
+            solution1 = solution1.LoadSolutionFromFile("C:\\iniFiles\\ini26.txt");
             double[] gaussSolution = solution.GaussSolution;
             double[] lowerBounds = solution.LowerBound(1000);
             double[] upperBounds = solution.UpperBound(1000);
             Console.WriteLine("With bounds");
-            const int NP = 3;
+            const int NP = 5;
             double[] Vector = new double[NP + 1];
-            double[] X = { 0, 0, 0 };
+            double[] X = { 0, 0, 0,0,0 };
             double L, L_thres, cR, alpha, beta, gamma;
             L = 10;
             L_thres = 0.1;
