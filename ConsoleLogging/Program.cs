@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GenerateMatrixWithSilvestr;
 using NeldearMeadModificateAndTestFunctionsIncluded;
 using NeldearMeadModificateAndTestFunctionsIncluded.NeldearMead;
+using NeldearMeadModificateAndTestFunctionsIncluded.AnotherMethods;
 
 
 
@@ -33,9 +34,10 @@ namespace ConsoleLogging
             //p.ForDiploma26();
             // p.TestWithBounds29();
             // p.TestWithBounds28();
-           // p.TestWithBounds3Dimension();
-        //    p.TestWithBounds4Dimension();
-          //  p.TestWithBounds5Dimension();
+            // p.TestWithBounds3Dimension();
+            //    p.TestWithBounds4Dimension();
+            //  p.TestWithBounds5Dimension();
+            p.ShowUsGradient();
 
             int Good = 0;
             int Best = 0;
@@ -96,6 +98,26 @@ namespace ConsoleLogging
             Console.WriteLine("Best= " + Best);
             Console.WriteLine("Good= " + Good);
             Console.WriteLine("Worst= " + Worst);
+        }
+        public void ShowUsGradient()
+        {
+            const int NP = 10000;//шагов
+            Solution solution3 = new Solution();
+            double[] X = { 0, 0, 0 };
+            double[] LB = { -10000, -10000, -10000 };
+            double[] UB = { 10000, 10000, 10000 };
+           double[] answer = Gradient.GradientDescent(FunctionThirdDimensionFiveFunctions,X,NP,LB,UB);
+            solution3 = solution3.LoadSolutionFromFile("C:\\iniFiles\\ini3.txt");
+            double[] gaussSolution3 = solution3.GaussSolution;
+            
+            for (int i=0;i<answer.Length;i++)
+            {
+                Console.WriteLine(answer[i]);
+            }
+
+            double estimate = Estimation(gaussSolution3, answer);
+            Console.WriteLine("Ошибка по Градиенту= " + estimate);
+            Console.WriteLine("Значение функции по градиенту= " + FunctionThirdDimensionFiveFunctions(answer));
         }
         public double[] CloseTo(double[] x)
         {
