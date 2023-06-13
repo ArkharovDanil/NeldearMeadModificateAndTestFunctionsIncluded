@@ -101,6 +101,7 @@ namespace ConsoleLogging
         }
         public void ShowUsGradient()
         {
+            Console.WriteLine();
             const int NP = 10000;//шагов
             Solution solution3 = new Solution();
             double[] X = { 0, 0, 0 };
